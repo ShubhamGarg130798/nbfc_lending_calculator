@@ -1,9 +1,12 @@
 import streamlit as st
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import numpy as np
+from datetime import datetime
 
-# Set your password
 PASSWORD = "nbfcsecure123"
 
-# Ask for password input
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
@@ -12,14 +15,11 @@ if not st.session_state.authenticated:
     if password == PASSWORD:
         st.session_state.authenticated = True
         st.success("Access granted. Welcome!")
+        st.rerun()  # <--- forces rerun to load dashboard
     elif password:
         st.error("Incorrect password")
-    st.stop()  # Stop here if not authenticated
+    st.stop()
 
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-import numpy as np
 
 # Set page config
 st.set_page_config(
