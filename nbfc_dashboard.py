@@ -1,8 +1,4 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-import numpy as np
 
 # Set your password
 PASSWORD = "nbfcsecure123"
@@ -19,6 +15,11 @@ if not st.session_state.authenticated:
     elif password:
         st.error("Incorrect password")
     st.stop()  # Stop here if not authenticated
+
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import numpy as np
 
 # Set page config
 st.set_page_config(
