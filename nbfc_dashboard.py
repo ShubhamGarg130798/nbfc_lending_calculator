@@ -1071,6 +1071,14 @@ if sum_annual_investment > 0:
 else:
     period_roi = 0
 
+# Calculate Our Share
+total_profit_loss = df['profit_loss'].sum()
+total_cost_of_funds = df['cost_of_funds'].sum()
+if total_profit_loss != 0:
+    our_share = ((((total_profit_loss + total_cost_of_funds) / 2) / total_profit_loss) * 100)
+else:
+    our_share = 0
+
 # Key Performance Indicators
 st.markdown('<div class="section-header">Key Performance Indicators</div>', unsafe_allow_html=True)
 
@@ -1106,7 +1114,6 @@ with col2:
     """, unsafe_allow_html=True)
     
 with col3:
-    total_profit_loss = df['profit_loss'].sum()
     st.markdown(f"""
     <div class="kpi-card orange">
         <div class="kpi-header">
@@ -1121,7 +1128,6 @@ with col3:
     """, unsafe_allow_html=True)
     
 with col4:
-    final_month_aum = df['aum'].iloc[-1]
     st.markdown(f"""
     <div class="kpi-card teal">
         <div class="kpi-header">
@@ -1138,8 +1144,8 @@ with col4:
 # Add spacing between rows
 st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
 
-# Second Row: 3 cards (centered)
-col_spacer1, col5, col6, col7, col_spacer2 = st.columns([0.5, 1, 1, 1, 0.5], gap="small")
+# Second Row: 4 cards
+col5, col6, col7, col8 = st.columns(4, gap="small")
 
 with col5:
     final_month_disbursed = df['amount_disbursed'].iloc[-1]
@@ -1185,6 +1191,20 @@ with col7:
         </div>
         <div class="kpi-value">₹{total_npa_kpi:.2f} Cr</div>
         <div class="kpi-trend">Principal: ₹{cum_npa_principal:.2f} Cr | Interest: ₹{cum_npa_interest:.2f} Cr</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col8:
+    st.markdown(f"""
+    <div class="kpi-card green">
+        <div class="kpi-header">
+            <div>
+                <div class="kpi-label">Our Share</div>
+            </div>
+            <div class="kpi-icon">💡</div>
+        </div>
+        <div class="kpi-value">{our_share:.2f}%</div>
+        <div class="kpi-trend">Share percentage</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1671,5 +1691,3 @@ with output_col:
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-
